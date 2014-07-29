@@ -8,7 +8,6 @@ import (
 	"io"
 	"io/ioutil"
 	"j4k.co/terminal"
-	"log"
 	"os"
 )
 
@@ -74,7 +73,6 @@ func (g *GifGenerator) Generate(input string, output string) (err error) {
 		// calc delay and capture
 		delay := int(float64(diff.Sec*1000000+diff.Usec)/g.Speed) / 10000
 		if delay > 0 {
-			log.Println(delay)
 			var img *image.Paletted
 			img, err = g.Capture(&state)
 			if err != nil {
