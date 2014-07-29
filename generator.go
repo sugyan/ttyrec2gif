@@ -2,10 +2,8 @@ package main
 
 import (
 	"bytes"
-	"github.com/sugyan/ttyread"
 	"image"
 	"image/gif"
-	"io"
 	"io/ioutil"
 	"j4k.co/terminal"
 	"os"
@@ -31,13 +29,6 @@ func NewGifGenerator() *GifGenerator {
 
 // Generate writes to outFile an animated GIF
 func (g *GifGenerator) Generate(input string, output string) (err error) {
-	// input
-	inFile, err := os.Open(input)
-	if err != nil {
-		return
-	}
-	defer inFile.Close()
-
 	// virtual terminal
 	var state = terminal.State{}
 	vt, err := terminal.Create(&state, ioutil.NopCloser(bytes.NewBuffer([]byte{})))
@@ -47,31 +38,13 @@ func (g *GifGenerator) Generate(input string, output string) (err error) {
 	defer vt.Close()
 	vt.Resize(g.Col, g.Row)
 
-	// read ttyrecord
-	reader := ttyread.NewTtyReader(inFile)
+	// play and capture
 	var (
-		prevTv *ttyread.TimeVal
 		images []*image.Paletted
 		delays []int
 	)
-	for {
-		var data *ttyread.TtyData
-		data, err = reader.ReadData()
-		if err != nil {
-			if err == io.EOF {
-				break
-			} else {
-				return
-			}
-		}
-		var diff ttyread.TimeVal
-		if prevTv != nil {
-			diff = data.TimeVal.Subtract(*prevTv)
-		}
-		prevTv = &data.TimeVal
-
-		// calc delay and capture
-		delay := int(float64(diff.Sec*1000000+diff.Usec)/g.Speed) / 10000
+	err = g.TtyPlay(input, vt, func(diff int32) (err error) {
+		delay := int(float64(diff)/g.Speed) / 10000
 		if delay > 0 {
 			var img *image.Paletted
 			img, err = g.Capture(&state)
@@ -81,13 +54,13 @@ func (g *GifGenerator) Generate(input string, output string) (err error) {
 			images = append(images, img)
 			delays = append(delays, delay)
 		}
-		// write to vt
-		_, err = vt.Write(*data.Buffer)
-		if err != nil {
-			return
-		}
+		return nil
+	})
+	if err != nil {
+		return
 	}
 
+	// generate gif file
 	outFile, err := os.Create(output)
 	if err != nil {
 		return
