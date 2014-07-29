@@ -6,6 +6,12 @@ ttyrec to animated GIF.
 ![](https://cloud.githubusercontent.com/assets/80381/3735009/5fa96246-171f-11e4-9089-e8e8daec308c.gif)
 
 
+About ttyrec
+------------
+
+see [http://0xcc.net/ttyrec/](http://0xcc.net/ttyrec/).
+
+
 Installation
 ------------
 
@@ -23,6 +29,13 @@ Usage
 * `row`: terminal height (default: `24`)
 * `col`: terminal width (default: `80`)
 * `noloop`: play only once (default: `false`)
+
+
+Demo
+====
+
+256color, [peco](https://github.com/peco/peco)
+![](https://cloud.githubusercontent.com/assets/80381/3735011/637e1d8a-171f-11e4-9d1b-4b5da5456378.gif)
 
 
 Note
