@@ -35,7 +35,13 @@ Demo
 ====
 
 256color, [peco](https://github.com/peco/peco)
+
 ![](https://cloud.githubusercontent.com/assets/80381/3735011/637e1d8a-171f-11e4-9d1b-4b5da5456378.gif)
+
+
+sl
+
+![](https://cloud.githubusercontent.com/assets/80381/3745301/b8836604-17a7-11e4-85d7-0441d875e486.gif)
 
 
 Note

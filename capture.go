@@ -33,7 +33,7 @@ func init() {
 func (g *GifGenerator) Capture(state *terminal.State) (paletted *image.Paletted, err error) {
 	fb := font.Bounds(fontSize)
 	cursorX, cursorY := state.Cursor()
-	paletted = image.NewPaletted(image.Rect(0, 0, g.Col*int(fb.XMax-fb.XMin)+10, g.Row*int(fb.YMax-fb.YMin)), palette.WebSafe)
+	paletted = image.NewPaletted(image.Rect(0, 0, g.Col*int(fb.XMax-fb.XMin)+10, g.Row*int(fb.YMax-fb.YMin)+10), palette.WebSafe)
 
 	c := freetype.NewContext()
 	c.SetFontSize(fontSize)
