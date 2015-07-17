@@ -15,7 +15,7 @@ see [http://0xcc.net/ttyrec/](http://0xcc.net/ttyrec/).
 Installation
 ------------
 
-    go get github.com/lengshuiyulangcn/ttyrec2gif
+    go get github.com/sugyan/ttyrec2gif
 
 
 Usage
