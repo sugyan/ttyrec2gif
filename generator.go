@@ -5,7 +5,7 @@ import (
 	"image"
 	"image/gif"
 	"io/ioutil"
-	"j4k.co/terminal"
+	"github.com/james4k/terminal"
 	"os"
 )
 

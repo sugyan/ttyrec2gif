@@ -8,7 +8,7 @@ import (
 	"image"
 	"image/color/palette"
 	"image/draw"
-	"j4k.co/terminal"
+	"github.com/james4k/terminal"
 	"os"
 )
 
