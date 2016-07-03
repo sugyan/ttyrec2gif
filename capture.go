@@ -1,8 +1,8 @@
 package main
 
 import (
-	"code.google.com/p/freetype-go/freetype"
-	"code.google.com/p/freetype-go/freetype/truetype"
+	"github.com/golang/freetype"
+	"github.com/golang/freetype/truetype"
 	"fmt"
 	"github.com/errnoh/term.color"
 	"image"
@@ -33,7 +33,7 @@ func init() {
 func (g *GifGenerator) Capture(state *terminal.State) (paletted *image.Paletted, err error) {
 	fb := font.Bounds(fontSize)
 	cursorX, cursorY := state.Cursor()
-	paletted = image.NewPaletted(image.Rect(0, 0, g.Col*int(fb.XMax-fb.XMin)+10, g.Row*int(fb.YMax-fb.YMin)+10), palette.WebSafe)
+	paletted = image.NewPaletted(image.Rect(0, 0, g.Col*int(fb.Max.X-fb.Min.X)+10, g.Row*int(fb.Max.Y-fb.Min.Y)+10), palette.WebSafe)
 
 	c := freetype.NewContext()
 	c.SetFontSize(fontSize)
@@ -57,7 +57,7 @@ func (g *GifGenerator) Capture(state *terminal.State) (paletted *image.Paletted,
 				uniform = image.White
 			}
 			if uniform != nil {
-				draw.Draw(paletted, image.Rect(5+col*int(fb.XMax-fb.XMin), row*int(fb.YMax-fb.YMin)-int(fb.YMin), 5+(col+1)*int(fb.XMax-fb.XMin), (row+1)*int(fb.YMax-fb.YMin)-int(fb.YMin)), uniform, image.ZP, draw.Src)
+				draw.Draw(paletted, image.Rect(5+col*int(fb.Max.X-fb.Min.X), row*int(fb.Max.Y-fb.Min.Y)-int(fb.Min.Y), 5+(col+1)*int(fb.Max.X-fb.Min.X), (row+1)*int(fb.Max.Y-fb.Min.Y)-int(fb.Min.Y)), uniform, image.ZP, draw.Src)
 			}
 			// foreground color
 			switch fg {
@@ -68,7 +68,7 @@ func (g *GifGenerator) Capture(state *terminal.State) (paletted *image.Paletted,
 			default:
 				c.SetSrc(image.NewUniform(color.Term256{Val: uint8(fg)}))
 			}
-			_, err = c.DrawString(string(ch), freetype.Pt(5+col*int(fb.XMax-fb.XMin), (row+1)*int(fb.YMax-fb.YMin)))
+			_, err = c.DrawString(string(ch), freetype.Pt(5+col*int(fb.Max.X-fb.Min.X), (row+1)*int(fb.Max.Y-fb.Min.Y)))
 			if err != nil {
 				return
 			}
