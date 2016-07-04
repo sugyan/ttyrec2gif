@@ -1,14 +1,14 @@
 package main
 
 import (
-	"github.com/golang/freetype"
-	"github.com/golang/freetype/truetype"
 	"fmt"
 	"github.com/errnoh/term.color"
+	"github.com/golang/freetype"
+	"github.com/golang/freetype/truetype"
+	"github.com/james4k/terminal"
 	"image"
 	"image/color/palette"
 	"image/draw"
-	"github.com/james4k/terminal"
 	"os"
 )
 
