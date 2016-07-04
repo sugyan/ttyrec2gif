@@ -47,5 +47,19 @@ sl
 Note
 ----
 
-- [j4k.co/terminal](http://godoc.org/j4k.co/terminal)
+- [james4k/terminal](https://github.com/james4k/terminal)
 - [Anonymous Pro](http://www.marksimonson.com/fonts/view/anonymous-pro) font
+
+
+Author
+------
+
+@sugyan
+
+
+Thanks To
+---------
+
+@lengshuiyulangcn
+
+@hirak
