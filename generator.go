@@ -11,19 +11,21 @@ import (
 
 // GifGenerator type
 type GifGenerator struct {
-	Speed  float64
-	Col    int
-	Row    int
-	NoLoop bool
+	Speed      float64
+	Col        int
+	Row        int
+	NoLoop     bool
+	ScreenInfo *ScreenInfo
 }
 
 // NewGifGenerator returns GifGenerator instance
 func NewGifGenerator() *GifGenerator {
 	return &GifGenerator{
-		Speed:  1.0,
-		Col:    80,
-		Row:    24,
-		NoLoop: false,
+		Speed:      1.0,
+		Col:        80,
+		Row:        24,
+		NoLoop:     false,
+		ScreenInfo: NewScreenInfo(),
 	}
 }
 
