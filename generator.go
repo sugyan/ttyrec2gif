@@ -11,19 +11,21 @@ import (
 
 // GifGenerator type
 type GifGenerator struct {
-	Speed  float64
-	Col    int
-	Row    int
-	NoLoop bool
+	Speed      float64
+	Col        int
+	Row        int
+	NoLoop     bool
+	ScreenInfo *ScreenInfo
 }
 
 // NewGifGenerator returns GifGenerator instance
 func NewGifGenerator() *GifGenerator {
 	return &GifGenerator{
-		Speed:  1.0,
-		Col:    80,
-		Row:    24,
-		NoLoop: false,
+		Speed:      1.0,
+		Col:        80,
+		Row:        24,
+		NoLoop:     false,
+		ScreenInfo: NewScreenInfo(),
 	}
 }
 
@@ -40,11 +42,15 @@ func (g *GifGenerator) Generate(input string, output string) (err error) {
 
 	// play and capture
 	var (
-		images []*image.Paletted
-		delays []int
+		images  []*image.Paletted
+		delays  []int
+		ttyTime int64
+		gifTime int64
 	)
 	err = g.TtyPlay(input, vt, func(diff int32) (err error) {
-		delay := int(float64(diff)/g.Speed) / 10000
+		ttyTime += int64(float64(diff) / g.Speed)
+		delay := int((ttyTime-gifTime)/10000/10) * 10
+		gifTime += int64(delay) * 10000
 		if delay > 0 {
 			var img *image.Paletted
 			img, err = g.Capture(&state)
