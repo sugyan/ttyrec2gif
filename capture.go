@@ -40,7 +40,7 @@ func (g *GifGenerator) Capture(state *terminal.State) (paletted *image.Paletted,
 	c.SetFontSize(fontSize)
 	c.SetFont(font)
 	c.SetDst(paletted)
-	c.SetClip(paletted.Bounds())
+	c.SetClip(image.Rect(0, 0, g.Col*int(fb.Max.X-fb.Min.X)+10, g.Row*int(fb.Max.Y-fb.Min.Y)+10))
 	for row := 0; row < g.Row; row++ {
 		for col := 0; col < g.Col; col++ {
 			ch, fg, bg := state.Cell(col, row)
